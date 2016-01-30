@@ -12,8 +12,8 @@ property remove_desc : true
 on run
 	if isSVGOInstalled() is false then
 		beep
-		display alert "SVGO seem not to be installed!" message Â
-			"Install the tool via \"npm install -g svgo\" and try again." buttons Â
+		display alert "SVGO seem not to be installed!" message Â¬
+			"Install the tool via \"npm install -g svgo\" and try again." buttons Â¬
 			{"OK"} default button "OK" as critical
 		return
 	end if
@@ -24,8 +24,8 @@ end run
 on open these_items
 	if isSVGOInstalled() is false then
 		beep
-		display alert "SVGO seem not to be installed!" message Â
-			"Install the tool via \"npm install -g svgo\" and try again." buttons Â
+		display alert "SVGO seem not to be installed!" message Â¬
+			"Install the tool via \"npm install -g svgo\" and try again." buttons Â¬
 			{"OK"} default button "OK" as critical
 		return
 	end if
