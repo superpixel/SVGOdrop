@@ -1,5 +1,5 @@
 (*
-	SVGOdrop 1.0.1
+	SVGOdrop 1.0.2
 	(c) 2016 Superpixel, Nico Rohrbach
 *)
 
@@ -10,13 +10,39 @@ property remove_title : true
 property remove_desc : true
 
 on run
+	if isSVGOInstalled() is false then
+		beep
+		display alert "SVGO seem not to be installed!" message Â
+			"Install the tool via \"npm install -g svgo\" and try again." buttons Â
+			{"OK"} default button "OK" as critical
+		return
+	end if
 	set these_items to choose file with multiple selections allowed
 	check_files(these_items)
 end run
 
 on open these_items
+	if isSVGOInstalled() is false then
+		beep
+		display alert "SVGO seem not to be installed!" message Â
+			"Install the tool via \"npm install -g svgo\" and try again." buttons Â
+			{"OK"} default button "OK" as critical
+		return
+	end if
 	check_files(these_items)
 end open
+
+on isSVGOInstalled()
+	try
+		set temp to do shell script "/bin/bash -l -c 'svgo'"
+	on error err_msg number err_num
+		if err_num is equal to 127 then
+			return false
+		else
+			return true
+		end if
+	end try
+end isSVGOInstalled
 
 on check_files(these_items)
 	repeat with i from 1 to the count of these_items
@@ -52,7 +78,8 @@ on process_file(this_item)
 	try
 		do shell script "/bin/bash -l -c 'svgo" & space & svgo_options & space & "\"" & file_path & "\"" & "'"
 	on error err_msg number err_num
-		display dialog "Error: " & err_msg buttons {"OK"} with icon stop
+		beep
+		display alert "Error" message err_msg buttons {"OK"} default button "OK" as critical
 		return err_num
 	end try
 end process_file
