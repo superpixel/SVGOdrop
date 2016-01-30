@@ -9,3 +9,5 @@ Paste the following line at a Terminal prompt:
 ```sh
 /bin/bash <(curl -fsSL https://raw.githubusercontent.com/superpixel/SVGOdrop/master/install.sh)
 ```
+
+This will compile SVGOdrop to your desktop.
